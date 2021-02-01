@@ -1,15 +1,17 @@
 {
-  "name": "panorama2cubemap",
+  "name": "@littlecabbage/panorama-to-cubemap",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "repository": "https://github.com/Swordword/panorama2cubemap.git",
   "author": "Swordword <massivejohn123@gmail.com>",
   "license": "MIT",
   "description": "parse panorama to six cubemap map",
-  "private": false,
   "scripts": {
     "dev": "webpack serve --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swordword/panorama2cubemap.git"
   },
   "bugs": {
     "url": "https://github.com/Swordword/panorama2cubemap/issues",
