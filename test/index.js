@@ -10,7 +10,12 @@ const sourceImg = document.createElement('img')
 sourceImg.src = panorama
 app.appendChild(sourceImg)
 
-panorama2Cubemap(panorama).then((res) => {
+const options = {
+  output: 'jpeg',
+  interpolation: 'lanczos',
+}
+
+panorama2Cubemap(panorama, options).then((res) => {
   console.log('res', res)
   const border = document.createElement('div')
   res.forEach((blob, idx) => {

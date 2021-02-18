@@ -11,7 +11,6 @@ function copyPixelNearest(read, write) {
   const readIndex = (x, y) => 4 * (y * width + x);
 
   return (xFrom, yFrom, to) => {
-
     const nearest = readIndex(
       clamp(Math.round(xFrom), 0, width - 1),
       clamp(Math.round(yFrom), 0, height - 1)
@@ -194,6 +193,6 @@ function renderFace({data: readData, face, rotation, interpolation, maxWidth = I
 }
 
 onmessage = function({data}) {
-  console.log('data',data)
+  console.log('worker onmessage data',data)
   renderFace(data);
 };

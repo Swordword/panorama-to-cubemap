@@ -1,4 +1,7 @@
-function panorama2Cubemap(imgPath,options) {
+function panorama2Cubemap(imgPath, options) {
+  // option
+  const { output = 'jpeg', interpolation = 'lanczos' } = options
+
   return new Promise((resolve) => {
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
@@ -12,7 +15,7 @@ function panorama2Cubemap(imgPath,options) {
     img.crossOrigin = 'anonymous'
 
     img.src = imgPath
-    
+
     img.onload = () => {
       const { width, height } = img
       canvas.width = width
@@ -43,11 +46,19 @@ function panorama2Cubemap(imgPath,options) {
     }
 
     const renderFace = function (data, faceName, position) {
+      /**
+       * interpolation:
+       *  linear(softer details)
+       *  cubic(sharper details)
+       *  lanczos(best but slower)
+       * output:
+       *  png|jpeg
+       */
       const options = {
         data,
         face: faceName,
         rotation: Math.PI,
-        interpolation: 'linear',
+        interpolation: interpolation,
       }
       console.log('options', options)
       const worker = new Worker(new URL('worker.js', import.meta.url))
@@ -68,7 +79,7 @@ function panorama2Cubemap(imgPath,options) {
       console.log('fn renderImageList')
       console.log('imageList', imageList)
       for (const imageData of imageList) {
-        const url = await getDataURL(imageData, 'png')
+        const url = await getDataURL(imageData, output)
         imgUrlList.push(url)
       }
       console.log('imgUrlList', imgUrlList)
