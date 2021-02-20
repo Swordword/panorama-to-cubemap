@@ -5,26 +5,24 @@
     <meta name="description" content="Convert a 360° panorama to a cubemap." />
     <title>Panorama to Cubemap</title>
     <style>
+      * {
+        margin: 0;
+      }
       body {
         margin: 1em auto;
         max-width: 800px;
-      }
-      .settings > * {
-        margin-top: 12px;
-        margin-bottom: 12px;
-      }
-      #cubemap {
-        width: 800px;
-        height: 600px;
-        position: relative;
-        border: 1px solid #888;
-        background: #eee;
-        margin-top: 15px;
       }
     </style>
   </head>
 
   <body>
+    <header>
+      <h1>Panorama to Cubemap</h1>
+      <aside>Convert panorama to sixcube faces.</aside>
+    </header>
+    <div id="upload">
+      <input type="file" id="imageFile" accept="image/*" placeholder="select file">
+    </div>
     <div id="app"></div>
   </body>
 </html>

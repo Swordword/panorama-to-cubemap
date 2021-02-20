@@ -1,27 +1,33 @@
-// import { panorama2Cubemap } from '@littlecabbage/panorama-to-cubemap'
 import { panorama2Cubemap } from '../src/index'
 
-import panorama from './panorama.png'
-
 const app = document.getElementById('app')
+const imageFile = document.getElementById('imageFile')
 
-const sourceImg = document.createElement('img')
+imageFile.addEventListener('change', imageUpload)
 
-sourceImg.src = panorama
-app.appendChild(sourceImg)
-
-const options = {
-  output: 'jpeg',
-  interpolation: 'lanczos',
-}
-
-panorama2Cubemap(panorama, options).then((res) => {
-  console.log('res', res)
-  const border = document.createElement('div')
-  res.forEach((blob, idx) => {
-    const image = document.createElement('img')
-    image.src = blob
-    border.appendChild(image)
+function imageUpload() {
+  const file = imageFile.files[0]
+  if (!file) return
+  console.log(file)
+  const sourceImg = document.createElement('img')
+  const imgUrl = URL.createObjectURL(file)
+  console.log('imgUrl', imgUrl)
+  sourceImg.src = imgUrl
+  app.appendChild(sourceImg)
+  sourceImg.addEventListener('load', () => {
+    const options = {
+      output: 'jpeg',
+      interpolation: 'lanczos',
+    }
+    panorama2Cubemap(imgUrl, options).then((res) => {
+      console.log('res', res)
+      const border = document.createElement('div')
+      res.forEach((blob, idx) => {
+        const image = document.createElement('img')
+        image.src = blob
+        border.appendChild(image)
+      })
+      app.appendChild(border)
+    })
   })
-  app.appendChild(border)
-})
+}
